@@ -6,11 +6,10 @@ from data import Locator
 
 
 class TestPersonalCabinet:
-    def test_input_personal_cabinet(self, driver, login_page, authorization_login, authorization_password,
-                                    click_button_registration, button_personal_cabinet, delay_personal_cabinet):
+    def test_input_personal_cabinet(self, driver, authorization):
+        # Найти и кликнуть по кнопке "Личный кабинет"
+        driver.find_element(*Locator.BUTTON_PERSONAL_CABINET).click()
 
         # Проверить, что вход в личный кабинет произведен
-        assert "alekseysisenkov5000@gmail.com" in driver.find_element(By.XPATH,
-                                                                      Locator.field_login()).get_attribute('value')
-
-        driver.quit()
+        assert WebDriverWait(driver, 3).until(expected_conditions.presence_of_element_located((By.XPATH,
+                                                                                               Locator.FIELD_LOGIN)))

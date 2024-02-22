@@ -1,70 +1,29 @@
 import secrets
 import random
 
+from selenium.webdriver.common.by import By
+
 
 class Locator:
-    @staticmethod
-    def name_and_email():
-        return ".//fieldset[1]/div/div/input"  # Поле "Имя" на странице Регистрации/
-        # Поле "Email" на странице Авторизации
-
-    @staticmethod
-    def email_and_pass():
-        return ".//fieldset[2]/div/div/input"  # Поле "Email" на странице Регистрации/
-        # Поле "Пароль" на странице Авторизации
-
-    @staticmethod
-    def password():
-        return ".//fieldset[3]/div/div/input"  # Поле "Пароль" на странице Регистрации
-
-    @staticmethod
-    def button_registration():
-        return ".// *[ @ id = 'root'] / div / main / div / form / button"  # Кнопка "Зарегистрироваться"
-
-    @staticmethod
-    def message_invalid_password():
-        return ".//fieldset[3] / div / p"  # Подпись "Некорректный пароль"
-
-    @staticmethod
-    def button_input():
-        return ".//section[2]/div/button"  # Кнопка "Войти в аккаунт" на странице Регистрации/
-        # Поле "Оформить заказ" на главной странице
-
-    @staticmethod
-    def button_personal_cabinet():
-        return "//*[@id='root']/div/header/nav/a/p"  # Кнопка "Личный кабинет"
-
-    @staticmethod
-    def button_in():
-        return "//*[@id='root']/div/main/div/div/p/a"  # Кнопка "Войти"
-
-    @staticmethod
-    def field_login():
-        return "html/body/div/div/main/div/div/div/ul/li[2]/div/div/input"  # Поле "Логин" в Личном кабинете
-
-    @staticmethod
-    def button_designer():
-        return "//*[@id='root']/div/header/nav/ul/li[1]/a/p"  # Кнопка "Конструктор"
-
-    @staticmethod
-    def header_assemble_burger():
-        return ".//section[1]/h1"  # Надпись "Соберите бургер"
-
-    @staticmethod
-    def button_output():
-        return ".// nav / ul / li[3] / button"  # Кнопка "Выход"
-
-    @staticmethod
-    def tab_bread():
-        return ".//section[1]/div[1]/div[1]/span"  # Вкладка "Булки"
-
-    @staticmethod
-    def tab_sause():
-        return ".//section[1]/div[1]/div[2]/span"  # Вкладка "Соусы"
-
-    @staticmethod
-    def tab_stuffing():
-        return ".//section[1]/div[1]/div[3]/span"  # Вкладка "Начинки"
+    INPUT_NAME = By.XPATH, '//label[text()="Имя"]/parent::div/input'  # Поле "Имя"
+    INPUT_EMAIL = By.XPATH, '//label[text()="Email"]/parent::div/input'  # Поле "Email"
+    INPUT_PASSWORD = By.XPATH, '//input[@type="password"]'  # Поле "Пароль"
+    BUTTON_REGISTRATION = By.XPATH, '//button[text()="Зарегистрироваться"]'  # Кнопка "Зарегистрироваться"
+    MESSAGE_INVALID_PASSWORD = '//p[text()="Некорректный пароль"]'  # Подпись "Некорректный пароль"
+    BUTTON_INPUT_ACCOUNT = By.XPATH, '//button[text()="Войти в аккаунт"]'  # Кнопка "Войти в аккаунт"
+    BUTTON_PLACE_ORDER = '//button[text()="Оформить заказ"]'  # Кнопка "Оформить заказ"
+    BUTTON_PERSONAL_CABINET = By.XPATH, '//p[text()="Личный Кабинет"]'  # Кнопка "Личный кабинет"
+    BUTTON_INPUT = By.XPATH, '//button[text()="Войти"]'  # Кнопка "Войти"
+    REF_INPUT = By.XPATH, '//a[@href="/login" and text()="Войти"]'  # Кнопка "Войти"
+    FIELD_LOGIN = '//input[@value="alekseysisenkov5000@gmail.com"]'  # Поле "Логин" в Личном кабинете с
+                                                                               # логином alekseysisenkov5000@gmail.com
+    BUTTON_DESIGNER = By.XPATH, '//p[text()="Конструктор"]'  # Кнопка "Конструктор"
+    BUTTON_OUTPUT = By.XPATH, '//button[@type="button" and text()="Выход"]'  # Кнопка "Выход"
+    OUTPUT = '//button[text()="Выход"]'  # Локатор для ожидания кнопки "Выход"
+    HEADER_ASSEMBLE_BURGER = '//h1[text()="Соберите бургер"]'  # Надпись "Соберите бургер"
+    TAB_BREAD = By.XPATH, '//span[text()="Булки"]/parent::div'  # Вкладка "Булки"
+    TAB_SAUSE = By.XPATH, '//span[text()="Соусы"]/parent::div'  # Вкладка "Соусы"
+    TAB_STUFFING = By.XPATH, '//span[text()="Начинки"]/parent::div'  # Вкладка "Начинки"
 
     @staticmethod
     def allocation_bread():
@@ -80,21 +39,11 @@ class Locator:
 
 
 class Ref:
-    @staticmethod
-    def registration_page():
-        return "https://stellarburgers.nomoreparties.site/register"  # ссылка на страницу Регистрации
-
-    @staticmethod
-    def main_page():
-        return 'https://stellarburgers.nomoreparties.site/'  # ссылка на Главную страницу
-
-    @staticmethod
-    def login_page():
-        return 'https://stellarburgers.nomoreparties.site/login'  # ссылка на страницу Авторизации
-
-    @staticmethod
-    def forgot_password_page():
-        return 'https://stellarburgers.nomoreparties.site/forgot-password'  # ссылка на страницу Восстановления пароля
+    REGISTRATION_PAGE = 'https://stellarburgers.nomoreparties.site/register'  # ссылка на страницу Регистрации
+    MAIN_PAGE = 'https://stellarburgers.nomoreparties.site/'  # ссылка на Главную страницу
+    LOGIN_PAGE = 'https://stellarburgers.nomoreparties.site/login'  # ссылка на страницу Авторизации
+    FORGOT_PASSWORD_PAGE = 'https://stellarburgers.nomoreparties.site/forgot-password'  # ссылка на страницу
+                                                                                            # Восстановления пароля
 
 
 class New:

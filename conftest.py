@@ -1,85 +1,49 @@
-import secrets
-
 import pytest
-import random
-
 from selenium import webdriver
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
-from selenium.webdriver.support.wait import WebDriverWait
-from data import Ref
+from selenium.webdriver.chrome.options import Options
+
 from data import Locator
-from data import New
+from data import Ref
 
 
 @pytest.fixture(scope='function')
 def driver():
-    driver = webdriver.Chrome()
-    return driver
+    options = Options()
+    options.add_argument('--window-size=1920,1080')
+    driver = webdriver.Chrome(options=options)
+
+    yield driver
+    driver.quit()
 
 
 @pytest.fixture(scope='function')
 def main_page(driver):
-    return driver.get(Ref.main_page())
+    driver.get(Ref.MAIN_PAGE)
 
 
 @pytest.fixture(scope='function')
 def registration_page(driver):
-    return driver.get(Ref.registration_page())
+    driver.get(Ref.REGISTRATION_PAGE)
 
 
 @pytest.fixture(scope='function')
 def forgot_password_page(driver):
-    return driver.get(Ref.forgot_password_page())
+    driver.get(Ref.FORGOT_PASSWORD_PAGE)
 
 
 @pytest.fixture(scope='function')
-def login_page(driver):
-    return driver.get(Ref.login_page())
-
-
-@pytest.fixture(scope='function')
-def authorization_login(driver):
-    return driver.find_element(By.XPATH, Locator.name_and_email()).send_keys("alekseysisenkov5000@gmail.com")
-
-
-@pytest.fixture(scope='function')
-def authorization_password(driver):
-    return driver.find_element(By.XPATH, Locator.email_and_pass()).send_keys("password")
-
-
-@pytest.fixture(scope='function')
-def click_button_registration(driver):
-    return driver.find_element(By.XPATH, Locator.button_registration()).click()
-
-
-@pytest.fixture(scope='function')
-def delay_input(driver):
-    return WebDriverWait(driver, 3).until(
-        expected_conditions.presence_of_element_located((By.XPATH, Locator.button_input())))
-
-
-@pytest.fixture(scope='function')
-def click_button_input(driver):
-    return driver.find_element(By.XPATH, Locator.button_input()).click()
+def authorization(driver):
+    driver.get(Ref.LOGIN_PAGE)
+    driver.find_element(*Locator.INPUT_EMAIL).send_keys("alekseysisenkov5000@gmail.com")
+    driver.find_element(*Locator.INPUT_PASSWORD).send_keys("password")
+    driver.find_element(*Locator.BUTTON_INPUT).click()
 
 
 @pytest.fixture(scope='function')
 def button_personal_cabinet(driver):
-    return driver.find_element(By.XPATH, Locator.button_personal_cabinet()).click()
-
-
-@pytest.fixture(scope='function')
-def button_in(driver):
-    return driver.find_element(By.XPATH, Locator.button_in()).click()
+    driver.find_element(*Locator.BUTTON_PERSONAL_CABINET).click()
 
 
 @pytest.fixture(scope='function')
 def button_designer(driver):
-    return driver.find_element(By.XPATH, Locator.button_designer()).click()
-
-
-@pytest.fixture(scope='function')
-def delay_personal_cabinet(driver):
-    return WebDriverWait(driver, 3).until(expected_conditions.presence_of_element_located((By.XPATH,
-                                                                                           Locator.field_login())))
+    driver.find_element(*Locator.BUTTON_DESIGNER).click()
